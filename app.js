@@ -87,8 +87,18 @@ const clientSchema = new mongoose.Schema({
     country: String,
     email: String,
     phone: String,
+    countPerson: Number,
+    dateTrip: Date,
     levelDisability: [String],
     typeDisability: [String],
+    specialNeeds: [String],
+    specialNeedsOther: String,
+    destination: [String],
+    destinationOther: String,
+    structure: [String],
+    structureOther: String,
+    services: [String],
+    servicesOther: String,
     needs: String,
     pictures: [String]
  });
@@ -187,6 +197,34 @@ app.route("/clients")
     })
     })
     .post((req,res) => {
+        const newClient = new Client({
+            name: req.body.nameCli,
+            firstName: req.body.firstNameCli,
+            address: req.body.addrCli,
+            place: req.body.placeCli,
+            email: req.body.emailCli,
+            phone: req.body.phoneCli,
+            countPerson: req.body.countCli,
+            dateTrip: req.body.dateTripCli,
+            levelDisability: req.body.levelDisabilityCli,
+            typeDisability: req.body.typeDisabilityCli,
+            specialNeeds: req.body.specialNeedsCli,
+            specialNeedsOther: req.body.specialNeedsOtherCli,
+            destination: req.body.destinationCli,
+            specialNeedsOther: req.body.destinationOtherCli,
+            structure: req.body.structureCli,
+            structureOther: req.body.structureOtherCli,
+            services: req.body.serviceCli,
+            servicesOther: req.body.serviceOtherCli,
+        });
+        newClient.save().then(() => {
+            res.render("clients", {
+                active: "clients",
+                structures: [],
+                activities: []
+            });    
+        });    
+    
         console.log(req.body);
     });
 app.get("/structures", (req,res) => {
